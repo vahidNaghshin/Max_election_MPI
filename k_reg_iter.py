@@ -3,16 +3,10 @@ from mpi4py import MPI
 import copy
 import random
 
-# The Yo-Yo algorithm for maximum consensus algorithm is implemented
-#  The status indicator is needed to determine
-# the end of iterative data transmission
-
-
 def neigh_det(vertex, rank, num_conn, neigh):
     # This function construct a k-regular graph
     vertex = np.delete(vertex, rank)
     vertex = np.roll(vertex, -rank)
-    # print(rank,vertex)
     if num_conn % 2 == 0:
         neigh[0:num_conn // 2] = vertex[size - (num_conn // 2) -
                                         1:size - 1]
@@ -61,12 +55,10 @@ def status_neighbour(Recv, rand_in, rank):
             stat_neigh[str(int(idx_neigh[j]))] = 'in'
         else:
             stat_neigh[str(int(idx_neigh[j]))] = 'out'
-    # print('it is process', rank, stat_neigh)
     return stat_neigh
 
 
 def status_itself(stat_neigh, num_conn):
-    # This function determine the status of the node itself
     inward = 0
     outward = 0
     for value in stat_neigh:
@@ -80,7 +72,6 @@ def status_itself(stat_neigh, num_conn):
         status_node = 'sink'
     else:
         status_node = 'internal'
-    # print(inward, outward, status_node)
     return status_node, inward, outward
 
 
@@ -134,23 +125,17 @@ if __name__ == '__main__':
         send_msg(neigh, randNum, rank)
         Recv = recv_msg(neigh, randNum, rank, data_receive)
         comm.Barrier()
-        # print('it is process', rank, 'the Recv is', Recv[0][1])
         stat_n = status_neighbour(Recv, rand_in[1], rank)
         stat_it = status_itself(stat_n, num_conn)
         comm.Barrier()
         set_flag(stat_it, rand_in)
-        # print('It is process', rank, 'and the status is',
-        #       stat_it[0], 'with data', rand_in)
         comm.Barrier()
-        # -------------------figure 3.53------------------
         for i in range(it):
             fo = compare_in(Recv, rand_in, rank)
-            # print('It is process', rank, 'and the max is', fo[0])
             comm.Barrier()
             randNum = copy.deepcopy(rand_in)
             randNum[1] = fo[0]
             send_msg(neigh, randNum, rank)
-            # print('It is process', rank, 'and the Sent is', randNum[1])
             Recv = recv_msg(neigh, randNum, rank, data_receive)
             comm.Barrier()
         print('it is the process', rank, 'and the max is', fo[0])
@@ -164,23 +149,17 @@ if __name__ == '__main__':
         send_msg(neigh, randNum, rank)
         Recv = recv_msg(neigh, randNum, rank, data_receive)
         comm.Barrier()
-        # print('it is process', rank, 'the Recv is', Recv[0][1])
         stat_n = status_neighbour(Recv, rand_in[1], rank)
         stat_it = status_itself(stat_n, num_conn)
         comm.Barrier()
         set_flag(stat_it, rand_in)
-        # print('It is process', rank, 'and the status is',
-        #       stat_it[0], 'with data', rand_in)
         comm.Barrier()
-        # -------------------figure 3.53------------------
         for i in range(it):
             fo = compare_in(Recv, rand_in, rank)
-            # print('It is process', rank, 'and the max is', fo[0])
             comm.Barrier()
             randNum = copy.deepcopy(rand_in)
             randNum[1] = fo[0]
             send_msg(neigh, randNum, rank)
-            # print('It is process', rank, 'and the Sent is', randNum[1])
             Recv = recv_msg(neigh, randNum, rank, data_receive)
             comm.Barrier()
         print('it is the process', rank, 'and the max is', fo[0])
@@ -194,23 +173,17 @@ if __name__ == '__main__':
         send_msg(neigh, randNum, rank)
         Recv = recv_msg(neigh, randNum, rank, data_receive)
         comm.Barrier()
-        # print('it is process', rank, 'the Recv is', Recv[0][1])
         stat_n = status_neighbour(Recv, rand_in[1], rank)
         stat_it = status_itself(stat_n, num_conn)
         comm.Barrier()
         set_flag(stat_it, rand_in)
-        # print('It is process', rank, 'and the status is',
-        #       stat_it[0], 'with data', rand_in)
         comm.Barrier()
-        # -------------------figure 3.53------------------
         for i in range(it):
             fo = compare_in(Recv, rand_in, rank)
-            # print('It is process', rank, 'and the max is', fo[0])
             comm.Barrier()
             randNum = copy.deepcopy(rand_in)
             randNum[1] = fo[0]
             send_msg(neigh, randNum, rank)
-            # print('It is process', rank, 'and the Sent is', randNum[1])
             Recv = recv_msg(neigh, randNum, rank, data_receive)
             comm.Barrier()
         print('it is the process', rank, 'and the max is', fo[0])
