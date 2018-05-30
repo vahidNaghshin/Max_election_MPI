@@ -29,10 +29,7 @@ for p in range(2 * size):
             comm.Barrier()
         comm.Recv(randNum, source=size - 1, status=status)
         recv_num = randNum[0]
-        # print(recv_num)
         recv_tag = status.Get_tag()
-        # print('it is {} and the recv num is {} from process {}'.format(
-        #     rank, recv_num, recv_tag))
 
         recv_flag = randNum[1]
         if recv_flag != 0:
@@ -47,8 +44,6 @@ for p in range(2 * size):
             max_leader = rank
             randNum[1] = 1
             comm.Send(randNum, dest=1, tag=rank)
-            # print('I am process %d and I am max and it is %g' %
-            #       (rank, recv_num))
         else:
             # otherwise send -1
             randNum[0] = -1
@@ -67,9 +62,6 @@ for p in range(2 * size):
         comm.Recv(randNum, source=size - 2, status=status)
         recv_num = randNum[0]
         recv_tag = status.Get_tag()
-        # print(recv_num)
-        # print('it is {} and the recv num is {} from process {}'.format(
-        #     rank, recv_num, recv_tag))
 
         recv_flag = randNum[1]
         if recv_flag != 0:
@@ -84,8 +76,6 @@ for p in range(2 * size):
             max_leader = rank
             randNum[1] = 1
             comm.Send(randNum, dest=0, tag=rank)
-            # print('I am process %d and I am max and it is %g' %
-            #       (rank, recv_num))
         else:
             # otherwise send Nothing
             randNum[0] = -1
@@ -104,9 +94,6 @@ for p in range(2 * size):
         comm.Recv(randNum, source=rank - 1, status=status)
         recv_num = randNum[0]
         recv_tag = status.Get_tag()
-        # print(recv_num)
-        # print('it is {} and the recv num is {} from process {}'.format(
-        #     rank, recv_num, recv_tag))
 
         recv_flag = randNum[1]
         if recv_flag != 0:
@@ -121,8 +108,6 @@ for p in range(2 * size):
             max_leader = rank
             randNum[1] = 1
             comm.Send(randNum, dest=rank + 1, tag=rank)
-            # print('I am process %d and I am max and it is %g' %
-            #       (rank, recv_num))
         else:
             # otherwise send Nothing
             randNum[0] = -1
