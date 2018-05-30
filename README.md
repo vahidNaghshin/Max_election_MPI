@@ -7,3 +7,13 @@ Each node will eventually see the ID of everybody else (finite communication del
 
 Pros and Cons:
   The pros of ring topology is that, the nodes know when to terminate the agreement as there is an explicit announcement message after leader determination. However, the topology requires that the number of connected neighbours is limited to two. In the second, more general topology is supposed as each node is connected to exactly "n/10" nodes where “n” is total number of nodes. However, there is no explicit termination message for announcement such as the one exists in ring topology. We can improve the algorithm by using universal leader election such as Mega-Merger and YO-YO algorithms which is left for future.
+  
+  
+  Running the program:
+  
+  For running the prgram type in terminal for linux:
+  mpirun -n number_of_node python3 file_name.py
+  
+  For example for running the "k_reg_iter.py" with 30 nodes we will type:
+  mpirun -n 30 python3 k_reg_iter.py
+  
