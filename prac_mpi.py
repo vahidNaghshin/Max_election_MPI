@@ -113,5 +113,6 @@ for p in range(2 * size):
             # otherwise send Nothing
             randNum[0] = -1
             comm.Send(randNum, dest=rank + 1, tag=rank)
-if __name__ == __main__:
+
+if __name__ == '__main__':
     main()
