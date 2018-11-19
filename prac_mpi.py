@@ -2,7 +2,8 @@ from mpi4py import MPI
 import random
 import numpy as np
 
-comm = MPI.COMM_WORLD
+def main():
+    comm = MPI.COMM_WORLD
 size = comm.Get_size()
 rank = comm.Get_rank()
 status = MPI.Status()
@@ -112,3 +113,5 @@ for p in range(2 * size):
             # otherwise send Nothing
             randNum[0] = -1
             comm.Send(randNum, dest=rank + 1, tag=rank)
+if __name__ == __main__:
+    main()
