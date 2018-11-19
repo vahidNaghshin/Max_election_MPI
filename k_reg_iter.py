@@ -95,8 +95,7 @@ def compare_in(Recv, rand_in, rank):
     # print('it is process', rank, max_vote, nom_max)
     return max_vote, max_vote_idx, nom_max
 
-
-if __name__ == '__main__':
+def main():
     comm = MPI.COMM_WORLD
     size = comm.Get_size()
     rank = comm.Get_rank()
@@ -187,3 +186,6 @@ if __name__ == '__main__':
             Recv = recv_msg(neigh, randNum, rank, data_receive)
             comm.Barrier()
         print('it is the process', rank, 'and the max is', fo[0])
+if __name__ == '__main__':
+    main()
+    
